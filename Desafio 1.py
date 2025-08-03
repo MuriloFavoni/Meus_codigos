@@ -1,25 +1,17 @@
 import textwrap
 
-menu = """
-=======MENU=======
-[1]\tDepositar
-[2]\tSacar
-[3]\tExtrato
-[4]\tNova conta
-[5]\tListar contas
-[6]\tNovo usuário
-[7]\tSair
-==================
-"""
-
-saldo = 0
-limite = 500
-extrato = ""
-quant_saque = 0
-usuarios = []
-contas = []
-LIMITE_SAQUES = 3
-AGENCIA = "0001"
+def menu():
+    menu = """\n
+    =======MENU=======
+    [1]\tDepositar
+    [2]\tSacar
+    [3]\tExtrato
+    [4]\tNova conta
+    [5]\tListar contas
+    [6]\tNovo usuário
+    [7]\tSair
+    =>"""
+    return int(input(textwrap.dedent(menu)))
 
 def depositar(saldo, valor, extrato,/):
     if valor > 0:
@@ -53,6 +45,8 @@ def sacar(*, saldo, valor, extrato, limite, quant_saque, LIMITE_SAQUES):
 
     else:
         print("\nOperação falhou! O valor informado é inválido.")
+    
+    return saldo, extrato
 
 def exibir_extrato(saldo, /, *, extrato):
     print("\n================ EXTRATO ================")
@@ -100,42 +94,54 @@ def listar_contas(contas):
         print("=" + 100)
         print(textwrap.dedent(linha))
 
-while True:
-    opcao = int(input(menu))
+def main():
+    saldo = 0
+    limite = 500
+    extrato = ""
+    quant_saque = 0
+    usuarios = []
+    contas = []
+    LIMITE_SAQUES = 3
+    AGENCIA = "0001"
 
-    if opcao == 1:
-        valor = float(input("Digite o valor do deposito: "))
-        saldo, extrato = depositar(saldo, valor, extrato)
+    while True:
+        opcao = menu()
 
-    elif opcao == 2:
-        valor = float(input("Digite o valor do saque: "))
-        saldo, extrato = sacar(
-           saldo=saldo,
-           valor=valor,
-           extrato=extrato,
-           limite=limite,
-           quant_saque=quant_saque,
-           LIMITE_SAQUES=LIMITE_SAQUES
-       )
-        
-    elif opcao == 3:
-        exibir_extrato(saldo,extrato=extrato)
+        if opcao == 1:
+            valor = float(input("Digite o valor do deposito: "))
+            saldo, extrato = depositar(saldo, valor, extrato)
 
-    elif opcao == 4:
-        numero_conta = len(contas) + 1
-        conta = criar_conta(AGENCIA, numero_conta, usuarios)
+        elif opcao == 2:
+            valor = float(input("Digite o valor do saque: "))
+            saldo, extrato = sacar(
+            saldo=saldo,
+            valor=valor,
+            extrato=extrato,
+            limite=limite,
+            quant_saque=quant_saque,
+            LIMITE_SAQUES=LIMITE_SAQUES
+        )
+            
+        elif opcao == 3:
+            exibir_extrato(saldo,extrato=extrato)
 
-        if conta:
-            contas.append(conta)
+        elif opcao == 4:
+            numero_conta = len(contas) + 1
+            conta = criar_conta(AGENCIA, numero_conta, usuarios)
 
-    elif opcao == 5:
-        listar_contas(contas)
+            if conta:
+                contas.append(conta)
 
-    elif opcao == 6:
-        criar_usuario(usuarios)
+        elif opcao == 5:
+            listar_contas(contas)
 
-    elif opcao == 7:
-        break
+        elif opcao == 6:
+            criar_usuario(usuarios)
 
-    else:
-        print("Operação inválida, por favor selecione novamente a operação desejada.")
+        elif opcao == 7:
+            break
+
+        else:
+            print("Operação inválida, por favor selecione novamente a operação desejada.")
+
+main()
