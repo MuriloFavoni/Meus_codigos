@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Painel de vendas Porsche</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:#fff;--sf:#eeeff2;--ink:#010205;--mu:#6b6d70;--ln:#dcdde0;--bar:#c9cbcf;--rd:#d5001c;--hd:#0e1418;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181d;--sf:#1b2329;--ink:#f4f5f6;--mu:#9da1a6;--ln:#2c353c;--bar:#4a555e;--rd:#e5122b}}
+:root[data-theme="dark"]{--bg:#12181d;--sf:#1b2329;--ink:#f4f5f6;--mu:#9da1a6;--ln:#2c353c;--bar:#4a555e;--rd:#e5122b}
+html{scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 Barlow,"Helvetica Neue",Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--hd);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--hd);color:#fff;display:flex;justify-content:space-between;align-items:center;height:56px;padding:0 clamp(16px,4vw,48px)}
+.wm{font-weight:600;letter-spacing:.34em;font-size:15px}
+header span{color:#a9adb2;font-size:14px}
+main{max-width:1280px;margin:0 auto;padding:40px clamp(16px,4vw,48px) 56px}
+h1{font-weight:500;font-size:clamp(30px,5vw,48px);line-height:1.1;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--mu);margin:0 0 32px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px 24px;align-items:end;padding:20px 0;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+label{display:block;font-size:13px;color:var(--mu);margin-bottom:4px}
+select{width:100%;appearance:none;-webkit-appearance:none;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23888' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 2px center;color:var(--ink);border:0;border-bottom:1px solid var(--ink);border-radius:0;padding:8px 24px 8px 0;font:inherit;font-size:16px;cursor:pointer}
+select.on{border-bottom:2px solid var(--rd)}
+option{background:var(--bg);color:var(--ink)}
+.clear{font:inherit;background:none;border:0;border-bottom:1px solid var(--ink);color:var(--ink);padding:8px 0;cursor:pointer;justify-self:start}
+:focus-visible{outline:2px solid var(--rd);outline-offset:3px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--ln);border-bottom:1px solid var(--ln)}
+.kpi div{background:var(--bg);padding:24px 24px 24px 0}
+.kpi b{display:block;font-size:34px;font-weight:300;line-height:1.1}
+.kpi span{color:var(--mu);font-size:14px}
+.g{display:grid;grid-template-columns:repeat(12,1fr);gap:56px 48px;margin-top:48px}
+.a{grid-column:span 7;min-width:0}.b{grid-column:span 5;min-width:0}
+@media(max-width:900px){.a,.b{grid-column:1/-1}}
+h2{font-size:22px;font-weight:500;margin:0 0 4px}
+.hint{color:var(--mu);font-size:14px;margin:0 0 20px}
+.tw{max-height:440px;overflow:auto;border-top:1px solid var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{position:sticky;top:0;background:var(--bg);text-align:left;font-weight:500;color:var(--mu);font-size:13px;padding:10px 12px 10px 0;border-bottom:1px solid var(--ln)}
+td{padding:10px 12px 10px 0;border-bottom:1px solid var(--ln);vertical-align:top}
+.n{text-align:center}
+.row{display:grid;grid-template-columns:minmax(110px,150px) 1fr 28px;gap:12px;align-items:center;padding:7px 0;font-size:14.5px}
+.tr{height:6px;background:var(--sf)}.tr i{display:block;height:100%;background:var(--bar)}
+.row.top .tr i{background:var(--rd)}
+.v{text-align:right;font-variant-numeric:tabular-nums}
+.big{font-size:28px;font-weight:300;margin:0 0 20px;line-height:1.2}
+.yc{display:flex;align-items:flex-end;gap:clamp(8px,2vw,20px);height:220px;border-bottom:1px solid var(--ink)}
+.yc div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;font-size:14px}
+.yc i{display:block;width:100%;background:var(--bar)}
+.yc .top i{background:var(--rd)}
+.yl{display:flex;gap:clamp(8px,2vw,20px)}
+.yl span{flex:1;text-align:center;color:var(--mu);font-size:14px;padding-top:8px}
+.ins{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.ins li{padding:14px 0;border-bottom:1px solid var(--ln)}
+.ins b{font-weight:600}
+.note{color:var(--mu);font-size:14px;margin-top:16px}
+footer{color:var(--mu);font-size:13px;margin-top:56px;max-width:80ch}
+</style>
+</head>
+<body>
+<header><span class="wm" style="color:#fff;font-size:15px">PORSCHE</span><span>Painel de vendas</span></header>
+<main>
+<h1>Vendas por modelo e cidade</h1>
+<p class="sub" id="sub"></p>
+<div class="filters" id="filters"></div>
+<div class="kpi" id="kpi"></div>
+<div class="g">
+<section class="a"><h2>Principais modelos por cidade</h2><p class="hint">Modelos vendidos em cada cidade e a família mais vendida ali.</p><div class="tw" id="tbl"></div></section>
+<section class="b"><h2>Modelos mais vendidos</h2><p class="hint">Os oito primeiros no recorte atual.</p><div id="mod"></div></section>
+<section class="a"><h2>Ano-modelo com mais saídas</h2><p class="big" id="ybig"></p><div class="yc" id="yc"></div><div class="yl" id="yl"></div></section>
+<section class="b"><h2>Insights de popularidade</h2><p class="hint">Calculados sobre os filtros escolhidos.</p><div id="ins"></div></section>
+</div>
+<footer>Fonte: planilha Dashboard_Porche_IA.xlsx, 100 registros. Vendas sem data válida entram nos totais, mas ficam fora do filtro de ano da venda. Valores tratados como dólares (US$) e todos os status de entrega são contados.</footer>
+</main>
+<script>
+const D={"m":["718 Boxster","718 Boxster GTS","718 Cayman","718 Cayman GT4 RS","718 Cayman S","718 Spyder RS","911 Carrera","911 Carrera Cabriolet","911 Carrera GTS","911 Carrera S","911 Dakar","911 GT3","911 GT3 RS","911 Targa 4","911 Targa 4S","911 Turbo","911 Turbo S","Cayenne","Cayenne Coupe","Cayenne E-Hybrid","Cayenne S","Cayenne Turbo","Cayenne Turbo GT","Macan","Macan Electric","Macan GTS","Macan S","Macan T","Panamera","Panamera 4","Panamera 4 E-Hybrid","Panamera 4S","Panamera Turbo","Panamera Turbo S","Taycan","Taycan 4S","Taycan Cross Turismo","Taycan GTS","Taycan Turbo","Taycan Turbo S"],"c":[["Albuquerque","NM"],["Anaheim","CA"],["Anchorage","AK"],["Arlington","TX"],["Atlanta","GA"],["Austin","TX"],["Bakersfield","CA"],["Boise","ID"],["Boston","MA"],["Buffalo","NY"],["Chandler","AZ"],["Charlotte","NC"],["Chesapeake","VA"],["Chicago","IL"],["Cincinnati","OH"],["Cleveland","OH"],["Colorado Springs","CO"],["Columbus","OH"],["Corpus Christi","TX"],["Dallas","TX"],["Denver","CO"],["Detroit","MI"],["Durham","NC"],["Fort Worth","TX"],["Fresno","CA"],["Garland","TX"],["Greensboro","NC"],["Henderson","NV"],["Honolulu","HI"],["Houston","TX"],["Indianapolis","IN"],["Irvine","CA"],["Irving","TX"],["Jacksonville","FL"],["Jersey City","NJ"],["Kansas City","MO"],["Laredo","TX"],["Las Vegas","NV"],["Lexington","KY"],["Lincoln","NE"],["Long Beach","CA"],["Los Angeles","CA"],["Lubbock","TX"],["Madison","WI"],["Mesa","AZ"],["Miami","FL"],["Milwaukee","WI"],["Minneapolis","MN"],["Nashville","TN"],["New Orleans","LA"],["New York","NY"],["Newark","NJ"],["Norfolk","VA"],["Oakland","CA"],["Omaha","NE"],["Orlando","FL"],["Philadelphia","PA"],["Phoenix","AZ"],["Pittsburgh","PA"],["Plano","TX"],["Portland","OR"],["Raleigh","NC"],["Reno","NV"],["Riverside","CA"],["Sacramento","CA"],["Salt Lake City","UT"],["San Antonio","TX"],["San Diego","CA"],["San Francisco","CA"],["San Jose","CA"],["Scottsdale","AZ"],["Seattle","WA"],["St. Louis","MO"],["Tampa","FL"],["Toledo","OH"],["Tucson","AZ"],["Tulsa","OK"],["Virginia Beach","VA"],["Wichita","KS"]],"p":["ACH","Transferência bancária","À vista","Cartão de crédito","Criptomoeda","Cartão de débito","Financiamento","Leasing","Transferência (wire)"],"r":[[2,2022,8,3,79500,0],[16,2024,71,8,235000,2024],[18,2023,5,6,112750,2024],[26,2021,20,2,68900,0],[35,2024,41,1,121000,2024],[29,2023,45,3,104500,2024],[9,2020,50,7,96300,2024],[19,2022,67,8,89750,0],[0,2021,13,5,73500,2024],[25,2024,57,6,95000,2024],[38,2023,19,0,153200,2024],[11,2024,37,8,241000,0],[33,2022,69,2,132000,2024],[22,2024,29,4,188000,2024],[7,2023,4,3,127800,2024],[23,2021,55,1,58900,2025],[5,2024,60,6,164000,0],[36,2023,11,8,118500,2025],[20,2022,48,3,91300,0],[14,2024,47,7,158750,2025],[28,2020,56,1,72000,2025],[24,2025,66,8,86500,2025],[10,2024,65,2,270000,0],[37,2023,61,6,139000,2025],[17,2021,21,3,76800,2025],[3,2024,17,8,173600,0],[8,2022,30,2,119900,2025],[30,2023,23,7,109250,2025],[27,2022,33,8,82000,2025],[39,2025,67,4,214000,2025],[6,2024,73,3,124500,0],[20,2023,64,1,98200,2025],[23,2022,15,6,67500,2025],[34,2025,46,8,116900,2025],[31,2024,35,2,112000,2025],[0,2021,54,5,74000,2025],[15,2024,0,8,198300,2025],[18,2023,75,8,103750,0],[25,2024,24,6,93600,0],[35,2025,77,0,129000,2025],[32,2022,16,3,136000,2025],[12,2024,3,8,286500,0],[19,2023,6,7,92800,2026],[27,2022,44,2,72400,2026],[38,2025,4,4,158500,2026],[2,2021,40,1,69900,2026],[13,2024,53,6,141250,0],[28,2020,76,8,71500,2026],[21,2023,78,3,146800,2026],[24,2025,49,7,89700,2026],[9,2022,28,1,104600,2026],[37,2024,1,8,142000,0],[17,2021,27,2,78400,2026],[5,2025,38,6,169000,0],[10,2024,63,3,268900,2026],[29,2023,18,8,101300,2026],[26,2021,72,2,66750,2026],[36,2024,58,7,127900,2026],[22,2025,14,8,200000,2026],[7,2023,2,4,132000,2026],[3,2024,59,3,176400,2026],[30,2022,51,1,108500,0],[23,2021,26,6,59000,2026],[39,2025,39,8,218000,2026],[20,2024,34,5,99950,0],[8,2024,10,3,121750,2026],[1,2023,62,7,91500,2026],[33,2022,9,8,134000,2026],[25,2024,22,0,96800,2026],[35,2025,36,8,131600,2026],[19,2023,43,2,94300,2026],[16,2025,42,4,242000,2026],[4,2022,74,3,82750,2026],[24,2026,31,8,91300,2026],[28,2021,25,6,79900,2026],[18,2024,32,1,111000,0],[14,2023,12,2,156500,2026],[34,2025,70,7,119900,2026],[27,2022,52,8,73200,0],[11,2024,7,8,224000,2026],[6,2024,55,3,126900,2027],[17,2023,69,1,84500,2027],[26,2022,73,6,69800,2027],[35,2025,20,8,132700,0],[28,2021,5,2,81000,2027],[2,2023,71,5,78900,2027],[16,2026,8,8,249300,2027],[18,2024,57,8,108750,0],[24,2026,13,6,92600,0],[38,2025,19,0,164000,2027],[31,2024,68,3,119000,2027],[11,2026,37,8,232500,0],[19,2023,11,7,96800,2027],[27,2022,44,2,74400,2027],[37,2025,4,4,148500,2027],[0,2021,40,1,71900,2027],[13,2024,53,6,143250,0],[32,2020,76,8,137500,2027],[22,2025,78,3,204800,2027],[10,2024,49,7,271700,2027]]};
+const $=s=>document.querySelector(s),fm=n=>n.toLocaleString('pt-BR');
+const cur=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'USD',notation:'compact',maximumFractionDigits:1});
+const fam=n=>/^(911|718)/.test(n)?n.slice(0,3):n.split(' ')[0];
+const S={m:'',y:'',c:'',p:'',s:''},X={m:0,y:1,c:2,p:3,s:5};
+const L={m:'Modelo Porsche',y:'Ano-modelo',c:'Cidade',p:'Forma de pagamento',s:'Ano da venda'};
+const cmp=(a,b)=>a[1].localeCompare(b[1],'pt',{numeric:true});
+const uq=i=>[...new Set(D.r.map(r=>r[i]).filter(Boolean))].sort((a,b)=>a-b).map(v=>[v,v]);
+const O={m:D.m.map((t,i)=>[i,t]).sort(cmp),y:uq(1).reverse(),c:D.c.map((t,i)=>[i,t[0]+', '+t[1]]).sort(cmp),p:D.p.map((t,i)=>[i,t]).sort(cmp),s:uq(5)};
+$('#filters').innerHTML=Object.keys(L).map(k=>`<div><label for="f_${k}">${L[k]}</label><select id="f_${k}" data-k="${k}"><option value="">Todos</option>${O[k].map(o=>`<option value="${o[0]}">${o[1]}</option>`).join('')}</select></div>`).join('')+'<button class="clear" id="clr">Limpar filtros</button>';
+document.querySelectorAll('select').forEach(s=>s.onchange=()=>{S[s.dataset.k]=s.value;render()});
+$('#clr').onclick=()=>{Object.keys(S).forEach(k=>S[k]='');document.querySelectorAll('select').forEach(s=>s.value='');render()};
+const tally=(a,f)=>{const m=new Map();a.forEach(x=>{const k=f(x);m.set(k,(m.get(k)||0)+1)});return[...m].sort((a,b)=>b[1]-a[1])};
+const pt=s=>String(s).replace('.',',');
+function render(){
+const R=D.r.filter(r=>Object.keys(X).every(k=>S[k]===''||r[X[k]]==S[k])),n=R.length;
+document.querySelectorAll('select').forEach(s=>s.classList.toggle('on',s.value!==''));
+$('#sub').textContent=`Mostrando ${n} de ${D.r.length} vendas.`;
+const rev=R.reduce((a,r)=>a+r[4],0),byC=new Map();
+R.forEach(r=>{(byC.get(r[2])||byC.set(r[2],[]).get(r[2])).push(r)});
+$('#kpi').innerHTML=[[fm(n),'Vendas'],[cur.format(rev),'Receita'],[n?cur.format(rev/n):'-','Ticket médio'],[fm(byC.size),'Cidades']].map(k=>`<div><b>${k[0]}</b><span>${k[1]}</span></div>`).join('');
+const years=[];for(let y=Math.min(...D.r.map(r=>r[1]));y<=Math.max(...D.r.map(r=>r[1]));y++)years.push(y);
+$('#yl').innerHTML=years.map(y=>`<span>${y}</span>`).join('');
+if(!n){const e='<p class="hint">Nenhuma venda com esses filtros. Remova um filtro para voltar a ver dados.</p>';['#tbl','#mod','#ins'].forEach(s=>$(s).innerHTML=e);$('#yc').innerHTML='';$('#ybig').textContent='Sem vendas no recorte';return}
+const mt=tally(R,r=>r[0]).sort((a,b)=>b[1]-a[1]||D.m[a[0]].localeCompare(D.m[b[0]])),mx=mt[0][1];
+$('#mod').innerHTML=mt.slice(0,8).map(([i,c])=>`<div class="row${c==mx?' top':''}"><span>${D.m[i]}</span><span class="tr"><i style="width:${c/mx*100}%"></i></span><span class="v">${c}</span></div>`).join('');
+const lead=new Map(),cityRows=[...byC].map(([ci,a])=>{
+const f=new Map();a.forEach(r=>{const k=fam(D.m[r[0]]),o=f.get(k)||[0,0];f.set(k,[o[0]+1,o[1]+r[4]])});
+const fl=[...f].sort((x,y)=>y[1][0]-x[1][0]||y[1][1]-x[1][1])[0][0];lead.set(ci,fl);
+const mm=tally(a,r=>D.m[r[0]]).map(([m,c])=>m+(c>1?' ×'+c:'')).join(', ');
+return[`${D.c[ci][0]}, ${D.c[ci][1]}`,mm,a.length,fl]}).sort((a,b)=>b[2]-a[2]||a[0].localeCompare(b[0]));
+$('#tbl').innerHTML='<table><thead><tr><th>Cidade</th><th>Modelos vendidos</th><th class="n">Un.</th><th>Família líder</th></tr></thead><tbody>'+cityRows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="n">${r[2]}</td><td>${r[3]}</td></tr>`).join('')+'</tbody></table>';
+const yt=new Map(tally(R,r=>r[1])),ym=Math.max(...yt.values()),ld=years.filter(y=>yt.get(y)==ym);
+const per=S.s?`em ${S.s}`:'em todo o período';
+$('#ybig').textContent=ld.length>2?`${ld.length} anos-modelo empatam com ${ym} vendas ${per}`:`${ld.join(' e ')} ${ld.length>1?'empatam':'lidera'} com ${ym} ${ym>1?'vendas':'venda'} ${per}`;
+$('#yc').innerHTML=years.map(y=>{const c=yt.get(y)||0;return`<div class="${c==ym?'top':''}"><span>${c}</span><i style="height:${c/ym*85}%"></i></div>`}).join('');
+const ft=tally(R,r=>fam(D.m[r[0]])),M=byC.size,cl=tally([...lead],x=>x[1])[0],pm=tally(R,r=>r[3])[0];
+const cc=[...byC].map(([ci,a])=>[D.c[ci][0],a.length]).sort((a,b)=>b[1]-a[1]),cm=cc[0][1],tc=cc.filter(x=>x[1]==cm).map(x=>x[0]);
+const I=[`Família mais vendida: <b>${ft[0][0]}</b>, com ${ft[0][1]} vendas (${Math.round(ft[0][1]/n*100)}%).`,
+`Modelo mais vendido: <b>${D.m[mt[0][0]]}</b>, com ${mx} ${mx>1?'vendas':'venda'}${mt.filter(x=>x[1]==mx).length>1?`, empatado com outros ${mt.filter(x=>x[1]==mx).length-1} modelos`:''}.`,
+cm>1?`Cidade com mais vendas: <b>${tc.slice(0,3).join(', ')}</b>${tc.length>3?` e outras ${tc.length-3}`:''}, com ${cm} cada.`:'Nenhuma cidade passa de 1 venda neste recorte.'];
+if(M>1)I.push(`A família <b>${cl[0]}</b> é a mais vendida em ${cl[1]} das ${M} cidades.`);
+I.push(`Pagamento predominante: <b>${D.p[pm[0]]}</b>, em ${Math.round(pm[1]/n*100)}% das vendas. Ticket médio de ${cur.format(rev/n)}.`);
+$('#ins').innerHTML='<ul class="ins">'+I.map(t=>`<li>${t}</li>`).join('')+'</ul>'+(n/M<3?`<p class="note">Base pequena: média de ${pt((n/M).toFixed(1))} vendas por cidade. Trate a leitura por cidade como indicação, não como tendência.</p>`:'');
+}
+render();
+</script>
+</body>
+</html>
